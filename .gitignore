@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+stable_diffusion/images/*
+
+space_invaders/fonts/*
+space_invaders/images/*
