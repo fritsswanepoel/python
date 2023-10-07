@@ -18,10 +18,12 @@ output_folder = "output/5_svg/"
 edge_approach = 'unique'
 figsize=(40,30)
 
+no_colour = 0.25 #0.05
+
 plt.box(on=None)
 plt.axis('off')
 
-input_files = os.listdir(input_component_folder)
+input_files = [f for f in os.listdir(input_component_folder)]
 
 for input_file in input_files:
     print(input_file)
@@ -68,7 +70,7 @@ for input_file in input_files:
                         break
 
             else:
-                order_color_list.append((0.0,0.0,0.0,0.05))
+                order_color_list.append((0.0,0.0,0.0,no_colour))
 
 
         # Create line collection
@@ -77,7 +79,7 @@ for input_file in input_files:
         #Read in edge order
         plt.figure(figsize=figsize)
 
-        nx.draw_networkx_nodes(g, positions, node_size=0.25, node_color='black', alpha=0.05)
+        nx.draw_networkx_nodes(g, positions, node_size=0.25, node_color='black', alpha=no_colour)
         plt.gca().add_collection(lc)
 
         plt.tick_params(axis='both',which='both',bottom=False,left=False,labelbottom=False,labelleft=False)
@@ -101,7 +103,7 @@ for input_file in input_files:
                         break
 
             else:
-                order_color_list.append((0.0,0.0,0.0,0.05))
+                order_color_list.append((0.0,0.0,0.0,no_colour))
 
 
         # Create line collection
@@ -110,7 +112,7 @@ for input_file in input_files:
         #Read in edge order
         plt.figure(figsize=figsize)
 
-        nx.draw_networkx_nodes(g, positions, node_size=0.25, node_color='black', alpha=0.05)
+        nx.draw_networkx_nodes(g, positions, node_size=0.25, node_color='black', alpha=no_colour)
         plt.gca().add_collection(lc)
 
         plt.tick_params(axis='both',which='both',bottom=False,left=False,labelbottom=False,labelleft=False)
@@ -123,6 +125,7 @@ for input_file in input_files:
 
     # Animation
     for edge_number in range(len(edges_list)+4):
+        break
         if f"{file_name}_{edge_number}.png" in output_files:
             print(f"Skip: {file_name}_{edge_number}.png")
         else:
