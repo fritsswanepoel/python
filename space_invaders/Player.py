@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.bullets = []
         self.font = pygame.font.SysFont('Arial', 25)
         self.lives = 3
+        self.cool_down = 0
 
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
@@ -31,13 +32,16 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.topleft = (self.x, self.y)
 
-        if keys[K_SPACE]:
+        if keys[K_SPACE] and self.cool_down <= 0:
             self.bullets.append(Bullet(self.x + (self.image.get_width() // 2), self.y, 20))
+            self.cool_down = 10
 
         for l in pygame.sprite.spritecollide(self, Settings.abullets, 0):
             Settings.abullets.remove(l)
             l.kill()
             self.lives -= 1
+
+        self.cool_down -=1
 
     def draw(self, screen):
         screen.blit(self.image, [self.x, self.y, self.image.get_width(), self.image.get_height()])

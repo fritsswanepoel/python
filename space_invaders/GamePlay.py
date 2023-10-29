@@ -101,7 +101,13 @@ class GamePlay:
         if self.player.bullets != [] and self.aliens != []:
             for b in self.player.bullets:
                 found = False
-                for a in pygame.sprite.spritecollide(b, self.aliens, 0):
+                collisions = pygame.sprite.spritecollide(b, self.aliens, 0)
+                if len(collisions) > 0:
+                    col = len(collisions) // 2
+                else:
+                    col = 0
+                if col > 0:
+                    a = collisions[col]
                     self.aliens.remove(a)
                     self.explosions.append(Explosion(a.x, a.y))
                     a.kill()
