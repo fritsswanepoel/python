@@ -26,20 +26,20 @@ class GamePlay:
         self.portal = Portal()
 
         self.winds = []
-        for x in range(3):
+        for x in range(5):
             self.winds.append(Wind())
 
         self.screen = screen
 
     def update(self, events):
-        self.player.update()
+        self.player.update(self.winds)
         self.portal.update()
         
         return self
     
     def draw(self, screen):
-        self.player.draw(screen)
         self.portal.draw(screen)
+        self.player.draw(screen, self.portal.x, self.portal.width)
 
         deadwind = []
 

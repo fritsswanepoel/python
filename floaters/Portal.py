@@ -27,7 +27,7 @@ class Portal:
 
     def draw(self, screen):
         surface = pygame.Surface((screen.get_width(), Settings.portal_height // 2))
-        #drawing an ellipse onto the 
+        
         pygame.draw.ellipse(
             surface, 
             self.colour, 

@@ -1,4 +1,5 @@
 import pygame
+import copy
 import Settings
 
 class Floater:
@@ -12,8 +13,25 @@ class Floater:
         self.sprite_width = Settings.floater_sprite_width
         self.sprite_height = Settings.floater_sprite_height
 
-    def update(self):
-        self.y -=1
+    def update(self, winds):
+        dx = 0
+        in_wind = False
+
+        for w in winds:
+            if self.x >= w.x \
+                and self.x <= w.x + w.sprite_width \
+                and self.y >= w.y \
+                and self.y <= w.y + w.sprite_height:
+                    dx += w.speed // 2
+                    in_wind = True
+
+        self.x += dx
+
+        if in_wind:
+            self.y -= self.dy // 2 
+        else:
+            self.y -= self.dy
+        
         if self.frame == 0:
             self.frame = 1
         else:
@@ -28,3 +46,4 @@ class Floater:
                         self.sprite_height],
                     (self.frame * self.sprite_width, 0, self.sprite_width, self.sprite_height)
                     )
+        

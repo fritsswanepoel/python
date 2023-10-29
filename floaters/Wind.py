@@ -20,6 +20,7 @@ class Wind(pygame.sprite.Sprite):
 
         self.image = pygame.image.load(Settings.wind_image)
         self.sprite_height = Settings.wind_image_height
+        self.sprite_width = self.image.get_width()
         self.frame = random.randint(0, 1)
 
         self.speed = 6 * winds[self.frame]['direction']

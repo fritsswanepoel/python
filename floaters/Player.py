@@ -21,7 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.points = 0
         self.cool_down = copy.deepcopy(Settings.player_cool_down)
 
-    def update(self):
+    def update(self, winds):
         keys = pygame.key.get_pressed()
         self.frame = 1
         if keys[K_LEFT]:
@@ -50,26 +50,26 @@ class Player(pygame.sprite.Sprite):
             self.cool_down -= 1
 
         for f in self.floaters:
-            f.update()
+            f.update(winds)
 
-    def draw(self, screen):
+    def draw(self, screen, portal_x, portal_width):
         screen.blit(self.image, 
                     [self.x, self.y, self.sprite_width, self.sprite_height],
                     (self.frame * self.sprite_width, 0, self.sprite_width, self.sprite_height)
                     )
 
-        self.points_text = self.font.render('Points: ' + str(self.points), True, (255, 100, 100))
-        screen.blit(self.points_text, (0,0))
-
         deadfloaters = []
         for f in self.floaters:
-            if f.y < 0:
+            if f.y <= 15:
                 deadfloaters.append(f)
+                if f.x >= portal_x and f.x <= portal_x + portal_width - f.sprite_width:
+                    self.points += 1
             f.draw(screen)
+            
 
         for f in deadfloaters:
             self.floaters.remove(f)
 
-
-
+        self.points_text = self.font.render('Points: ' + str(self.points), True, (255, 100, 100))
+        screen.blit(self.points_text, (0,0))
 
