@@ -11,6 +11,7 @@ class Portal:
         self.width = Settings.screen_width
         self.height = Settings.portal_height
         self.cooldown = copy.deepcopy(Settings.portal_speed)
+        self.speed = 1
 
     def update(self):
         if self.cooldown <= 0:
@@ -24,6 +25,10 @@ class Portal:
         else:
             self.cooldown -= 1
 
+        if self.x <= 0 or self.x + self.width >= Settings.screen_width:
+            self.speed *= -1
+        self.x += self.speed   
+
 
     def draw(self, screen):
         surface = pygame.Surface((screen.get_width(), Settings.portal_height // 2))
@@ -34,4 +39,4 @@ class Portal:
             (self.x, self.y, self.width, self.height)
             )
         screen.blit(surface,
-                    (0,15))
+                    Settings.portal_position)

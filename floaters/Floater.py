@@ -5,13 +5,14 @@ import Settings
 class Floater:
     def __init__(self, x, y):
         self.image = pygame.image.load(Settings.floater_image)
+        
+        self.sprite_width = Settings.floater_width
+        self.sprite_height = Settings.floater_height
 
         self.frame = 0
-        self.x = x - self.image.get_width() // 2
+        self.x = x - self.sprite_width // 2
         self.y = y
         self.dy = Settings.floater_yspeed 
-        self.sprite_width = Settings.floater_sprite_width
-        self.sprite_height = Settings.floater_sprite_height
 
     def update(self, winds):
         dx = 0
@@ -38,12 +39,19 @@ class Floater:
             self.frame = 0
 
     def draw(self, screen):
-        screen.blit(self.image, 
-                    [
-                        self.x, 
-                        self.y, 
-                        self.sprite_width, 
-                        self.sprite_height],
-                    (self.frame * self.sprite_width, 0, self.sprite_width, self.sprite_height)
-                    )
+        screen.blit(
+            self.image, 
+            [
+                self.x, 
+                self.y, 
+                self.sprite_width, 
+                self.sprite_height
+            ],
+            (
+                self.frame * self.sprite_width, 
+                0, 
+                self.sprite_width, 
+                self.sprite_height
+            )
+        )
         
